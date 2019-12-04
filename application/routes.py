@@ -3,11 +3,11 @@ from application import app
 
 @app.route('/')
 @app.route('/about')
-def home ():
+def about():
     return render_template('about.html', title='About')
 
 @app.route('/log')
-def about():
+def log():
     return render_template('log.html', title='Log')
 
 @app.route('/account')

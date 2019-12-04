@@ -4,6 +4,13 @@
         <title>{{ title }} - Page</title>
     </head>
     <body>
+        <div class="navbar">
+            <a href="{{ url_for('about') }}">Home</a>
+            <a href="{{ url_for('log') }}">Workout Log</a>
+            <a href="{{ url_for('account') }}">Account</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        </div>
         {% block body_content %}
         {% endblock %}
     </body>
