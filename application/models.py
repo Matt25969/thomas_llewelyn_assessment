@@ -1,6 +1,11 @@
-from application import db
+from application import db, login_manager
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(id):
+	return User.query.get(int(id))
 
 class Workout(db.Model):
 	id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -20,15 +25,13 @@ class Workout(db.Model):
 			'Reps: ', self.reps, '\r\n',
 			'User: ', self.user_id
 		])
-			
-			
-	
-class User(db.Model):
+				
+class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	first_name = db.Column(db.String(60), nullable=False)
 	last_name = db.Column(db.String(60), nullable=False)
 	email = db.Column(db.String(150), nullable=False, unique=True)
-	password = db.Column(db.String(50), nullable=False)
+	password = db.Column(db.String(150), nullable=False)
 	
 	log = db.relationship('Workout', backref='author', lazy=True)
 

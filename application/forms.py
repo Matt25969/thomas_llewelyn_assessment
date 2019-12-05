@@ -77,3 +77,20 @@ class RegistrationForm(FlaskForm):
 
         if user:
             raise ValidationError('Email is already in use, please try another')
+
+class LoginForm(FlaskForm):
+    email = StringField('Email: ',
+        validators=[
+            DataRequired(),
+            Email()
+        ]
+    )
+
+    password = PasswordField('Password: ',
+        validators=[
+            DataRequired()
+        ]
+    )
+
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login')
