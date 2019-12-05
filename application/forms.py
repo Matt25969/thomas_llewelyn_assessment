@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms import StringField, SubmitField, IntegerField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, NumberRange, Email, EqualTo, ValidationError
+from application.models import User
+from flask_login import LoginManager, current_user
 
 class LogForm(FlaskForm):
     workout = StringField('Workout: ',
