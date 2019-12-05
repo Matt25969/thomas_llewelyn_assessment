@@ -5,8 +5,8 @@
     {% for log in logs %}
         <div>
             <h3>{{ log.date_posted }}</h3>
-            <p><b> - user:</b>{{ log.user_id }}</p>
-            <p><b> - workout:</b>{{ log.workout }}</p>
+            <span>by <i>{{ log.author.first_name }} {{ log.author.last_name }}</i></span> 
+            <span>{{ log.workout }}</span>         
             <p><b> - part:</b>{{ log.body_part }}</p>
             <p><b> - sets:</b>{{ log.sets }}</p>
             <p><b> - reps:</b>{{ log.reps }}</p>
