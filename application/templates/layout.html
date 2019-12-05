@@ -3,15 +3,18 @@
     <head>
         <title>{{ title }}</title>
     </head>
-    <body>
-        <div class="navbar">
-            <a href="{{ url_for('about') }}">About</a>
-            <a href="{{ url_for('log') }}">Workout Log</a>
+    <bod>
+        <div>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('log') }}">Log</a>
+            <a href="{{ url_for('create') }}">Create</a>
             <a href="{{ url_for('account') }}">Account</a>
-            <a href="{{ url_for('login') }}">Login</a>
             <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('about') }}">About</a>
             <a href="{{ url_for('register') }}">Register</a>
-            <a href="{{ url_for('create') }}">Create Log</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
         </div>
         {% block body_content %}
         {% endblock %}

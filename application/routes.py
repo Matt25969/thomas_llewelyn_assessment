@@ -96,3 +96,22 @@ def update_account():
         form.last_name.data = current_user.last_name
         form.email.data = current_user.email
     return render_template('update_account.html', title='Update Details', form=form)
+
+@app.route('/delete', methods=['GET','POST'])
+def delete_workout(id):
+    workout = log.query.filter_by(id=workout.id).first()
+
+    try:
+        db.session.delete(workout)
+        db.session.commit()
+        return redirect('log')
+    except:
+        return 'There was a problem deleting that workout, Try again'
+
+def workouts():
+    workout = Workout.query.order_by(Workout.date_posted).all()
+    return render_template('log', workouts=workout)
+
+
+
+

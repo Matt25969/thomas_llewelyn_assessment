@@ -2,14 +2,20 @@
 {% block body_content %}
     <h1>Workout Log Page</h1>
     <p>this is the about page</p>
-    {% for log in logs %}
-        <div>
-            <h3>{{ log.date_posted }}</h3>
-            <span>by <i>{{ log.author.first_name }} {{ log.author.last_name }}</i></span> 
-            <span>{{ log.workout }}</span>         
-            <p><b> - part:</b>{{ log.body_part }}</p>
-            <p><b> - sets:</b>{{ log.sets }}</p>
-            <p><b> - reps:</b>{{ log.reps }}</p>
-        </div>
-    {% endfor %}
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Body Part</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+            {% for log in logs %}
+                <td>{{ log.date_posted }}</td>
+                <td>{{ log.body_part }}</td>
+                <td>
+                    <a href="" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            {% endfor %}
+            </tr>
+        </table>
 {% endblock body_content %}
