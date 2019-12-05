@@ -1,6 +1,6 @@
 from flask import render_template
 from application import app
-
+from application.models import User, Workout
 
 
 
@@ -11,7 +11,8 @@ def about():
 
 @app.route('/log')
 def log():
-    return render_template('log.html', title='Log')
+    workoutData = Workout.query.all()
+    return render_template('log.html', title='Workout Log', logs=workoutData)
 
 @app.route('/account')
 def account():
