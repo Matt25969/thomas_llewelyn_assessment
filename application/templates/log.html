@@ -6,16 +6,22 @@
             <tr>
                 <th>Date</th>
                 <th>Body Part</th>
+                <th>Workout</th>
+                <th>Sets</th>
+                <th>Reps</th>
                 <th>Actions</th>
             </tr>
+            {% for log in workouts %}
             <tr>
-            {% for log in logs %}
                 <td>{{ log.date_posted }}</td>
                 <td>{{ log.body_part }}</td>
+                <td>{{ log.workout }}</td>
+                <td>{{ log.sets }}</td>
+                <td>{{ log.reps }}</td>
                 <td>
-                    <a href="" onclick="return confirm('Are you sure?')">Delete</a>
+                    <a href="/delete/{{ log.id }}">Delete</a>
                 </td>
-            {% endfor %}
             </tr>
+            {% endfor %}
         </table>
 {% endblock body_content %}

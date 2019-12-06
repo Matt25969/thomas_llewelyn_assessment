@@ -11,10 +11,10 @@ from flask_login import login_user, current_user, logout_user, login_required
 def about():
     return render_template('about.html', title='About')
 
-@app.route('/log')
+@app.route('/log', methods=['GET', 'POST'])
 def log():
-    workoutData = Workout.query.all()
-    return render_template('log.html', title='Workout Log', logs=workoutData)
+    workoutData = Workout.query.filter_by(user_id=current_user.id).all()
+    return render_template('log.html', title='Workout Log', workouts=workoutData)
 
 @app.route('/account')
 def account():
@@ -64,7 +64,7 @@ def create():
             body_part=form.body_part.data,
             sets=form.sets.data,
             reps=form.reps.data,
-            user_id=1 #change this field when adding accounts!
+            user_id=current_user.id
         )
 
         db.session.add(postData)
@@ -78,9 +78,7 @@ def create():
 def logout():
     logout_user()
     return redirect(url_for('login'))
-"""
-the route below is a hyperlink in the account.html
-"""
+
 @app.route('/update_account', methods=['GET', 'POST'])
 @login_required
 def update_account():
@@ -97,20 +95,18 @@ def update_account():
         form.email.data = current_user.email
     return render_template('update_account.html', title='Update Details', form=form)
 
-@app.route('/delete', methods=['GET','POST'])
+@app.route('/delete/<int:id>', methods=['GET','POST'])
+@login_required
 def delete_workout(id):
-    workout = log.query.filter_by(id=workout.id).first()
-
+    workout = db.session.query(Workout).filter_by(id=id).all()
     try:
         db.session.delete(workout)
         db.session.commit()
         return redirect('log')
     except:
-        return 'There was a problem deleting that workout, Try again'
+        return 'unlucky!'
 
-def workouts():
-    workout = Workout.query.order_by(Workout.date_posted).all()
-    return render_template('log', workouts=workout)
+
 
 
 
