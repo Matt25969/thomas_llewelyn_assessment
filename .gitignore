@@ -2,3 +2,8 @@
 *.pyc
 application\__pycache__\*
 .vscode/*
+application/tests/__pycache__.py
+.coverage
+htmlcov/*
+.vscode/*
+.pytest_cache/*

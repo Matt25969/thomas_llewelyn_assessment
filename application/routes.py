@@ -9,14 +9,18 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/about')
 def about():
+    if current_user.is_authenticated:
+        return redirect(url_for('log'))
     return render_template('about.html', title='About')
 
 @app.route('/log', methods=['GET', 'POST'])
+@login_required
 def log():
     workoutData = Workout.query.filter_by(user_id=current_user.id).all()
     return render_template('log.html', title='Workout Log', workouts=workoutData)
 
 @app.route('/account')
+@login_required
 def account():
     return render_template('account.html', title='Account')
 
@@ -56,6 +60,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/create', methods=['GET','POST'])
+@login_required
 def create():
     form = LogForm()
     if form.validate_on_submit():
@@ -75,11 +80,13 @@ def create():
     return render_template('create_log.html', title='Create Workout', form=form)
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
 @app.route('/update_account', methods=['GET', 'POST'])
+@login_required
 def update_account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
@@ -95,6 +102,7 @@ def update_account():
     return render_template('update_account.html', title='Update Details', form=form)
 
 @app.route('/delete_workout/<int:id>', methods=['GET','POST'])
+@login_required
 def delete_workout(id):
     workout = Workout.query.get(id)
     try:
@@ -123,6 +131,7 @@ def delete_account():
 
 
 @app.route('/update_workout/<int:id>', methods=['GET','POST'])
+@login_required
 def update_workout(id):
     query = Workout.query.get(id)
     if query:
