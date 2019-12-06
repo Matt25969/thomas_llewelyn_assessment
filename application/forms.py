@@ -35,6 +35,38 @@ class LogForm(FlaskForm):
 
     submit = SubmitField('Create Workout')
 
+class UpdateWorkoutForm(FlaskForm):
+    workout = StringField('Workout: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=60)
+        ]
+    ) 
+
+    body_part = StringField('Body Part: ',
+        validators=[
+            DataRequired(),
+            Length(min=2, max=60)
+        ]
+    )
+    
+    sets = IntegerField('Sets: ',
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=100)
+        ]
+    )
+
+    reps = IntegerField('Reps: ',
+        validators=[
+            DataRequired(),
+            NumberRange(min=1, max=100)
+        ]
+    )
+
+    submit = SubmitField('Update Workout')
+   
+
 class RegistrationForm(FlaskForm):
     first_name = StringField('Name: ',
         validators=[

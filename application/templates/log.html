@@ -19,7 +19,8 @@
                 <td>{{ log.sets }}</td>
                 <td>{{ log.reps }}</td>
                 <td>
-                    <a href="/delete/{{ log.id }}">Delete</a>
+                    <a href="/delete_workout/{{ log.id }}">Delete</a>
+                    <a href="/update_workout/{{ log.id }}">Update</a>
                 </td>
             </tr>
             {% endfor %}

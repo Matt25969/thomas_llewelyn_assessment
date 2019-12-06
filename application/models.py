@@ -19,11 +19,12 @@ class Workout(db.Model):
 
 	def __repr__(self):
 		return ''.join([
-			'Date Posted: ', self.date_posted, '\r\n',
-			'Workout: ', self.body_part,' - ', self.workout, '\r\n',
-			'Sets: ', self.sets, '\r\n',
-			'Reps: ', self.reps, '\r\n',
-			'User: ', self.user_id
+			'Date Posted: ', str(self.date_posted), '\r\n',
+			'Body Part: ', self.body_part,
+			'Workout: ', self.workout, '\r\n',
+			'Sets: ', str(self.sets), '\r\n',
+			'Reps: ', str(self.reps), '\r\n',
+			'User: ', str(self.user_id)
 		])
 				
 class User(db.Model, UserMixin):

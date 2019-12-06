@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{ title }}</title>
+    <head>   
+        <title>{{ title }}</title>    
     </head>
+    <br>
     <bod>
-        <div>
+        <div align="center">
             {% if current_user.is_authenticated %}
             <a href="{{ url_for('log') }}">Log</a>
             <a href="{{ url_for('create') }}">Create</a>
@@ -16,7 +17,10 @@
             <a href="{{ url_for('login') }}">Login</a>
             {% endif %}
         </div>
-        {% block body_content %}
-        {% endblock %}
+        <br>
+        <div align="center">
+                {% block body_content %}
+                {% endblock %}
+        </div>
     </body>
 </html>

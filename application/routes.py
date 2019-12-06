@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 from application import app, db, bcrypt
 from application.models import User, Workout
-from application.forms import LogForm, RegistrationForm, LoginForm, UpdateAccountForm
+from application.forms import LogForm, RegistrationForm, LoginForm, UpdateAccountForm, UpdateWorkoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -51,7 +51,7 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('account'))
+        return redirect(url_for('login'))
 
     return render_template('register.html', title='Register', form=form)
 
@@ -80,7 +80,6 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/update_account', methods=['GET', 'POST'])
-@login_required
 def update_account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
@@ -95,19 +94,49 @@ def update_account():
         form.email.data = current_user.email
     return render_template('update_account.html', title='Update Details', form=form)
 
-@app.route('/delete/<int:id>', methods=['GET','POST'])
-@login_required
+@app.route('/delete_workout/<int:id>', methods=['GET','POST'])
 def delete_workout(id):
-    workout = db.session.query(Workout).filter_by(id=id).all()
+    workout = Workout.query.get(id)
     try:
         db.session.delete(workout)
         db.session.commit()
-        return redirect('log')
+        return redirect(url_for('log'))
     except:
-        return 'unlucky!'
+        return "Try again"
+
+@app.route('/delete_account', methods=['GET', 'POST'])
+@login_required
+def delete_account():
+    user = User.query.get(current_user.id)
+    logs = Workout.query.filter_by(user_id=current_user.id).all()
+    print(logs)
+    for log in logs:
+        db.session.delete(log)
+        db.session.commit()
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return redirect(url_for('register'))
+    except:
+        return redirect(url_for('account'))
+    
 
 
+@app.route('/update_workout/<int:id>', methods=['GET','POST'])
+def update_workout(id):
+    query = Workout.query.get(id)
+    if query:
+        print(query)
+        form = UpdateWorkoutForm(formdata=request.form, obj=query)
+        if form.validate_on_submit():
+            query.body_part = form.body_part.data
+            query.workout = form.workout.data
+            query.sets = form.sets.data
+            query.reps = form.reps.data
+            db.session.commit()
+            return redirect(url_for('log')) 
+        return render_template('update_workout.html', title='Update Workout', form=form)
+  
+    
 
-
-
-
+  

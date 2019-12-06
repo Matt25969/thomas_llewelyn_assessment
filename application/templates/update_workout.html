@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block body_content %}
+    <h1>Change Details</h1>
+    <div class="form">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.body_part.label }}
+                {% if form.body_part.errors %}
+                    {{ form.body_part }}
+                    <div class="error">
+                        {% for error in form.body_part.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.body_part }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.workout.label }}
+                {% if form.workout.errors %}
+                    {{ form.workout }}
+                    <div class="error">
+                        {% for error in form.workout.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.workout }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.sets.label }}
+                {% if form.sets.errors %}
+                    {{ form.sets }}
+                    <div class="error">
+                        {% for error in form.sets.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.sets }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.reps.label }}
+                {% if form.reps.errors %}
+                    {{ form.reps }}
+                    <div class="error">
+                        {% for error in form.reps.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.reps }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+{% endblock body_content %}

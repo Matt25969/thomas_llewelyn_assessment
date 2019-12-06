@@ -3,4 +3,5 @@
     <h1>{{ current_user.first_name }} {{ current_user.last_name }}</h1>
     <h2>Account Page</h2>
     <p><a href="{{ url_for('update_account') }}">Update your details</a></p>
+    <p><a href="{{ url_for('delete_account') }}">Delete Account</a></p>
 {% endblock body_content %}
